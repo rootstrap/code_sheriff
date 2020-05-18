@@ -2,7 +2,6 @@
 
 module CodeSheriff
   class Context
-
     def gemfile_path
       "#{folder_path}/Gemfile"
     end

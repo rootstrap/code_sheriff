@@ -5,15 +5,15 @@ module CodeSheriff
     class Base
       attr_reader :config_file_destination, :config_file_source, :name, :version
 
-      def initialize(config_file_source: nil, config_file_destination: nil, name:, 
-        version: nil)
+      def initialize(config_file_source: nil, config_file_destination: nil, name:,
+                     version: nil)
         @config_file_source = config_file_source
         @config_file_destination = config_file_destination
         @name = name
         @version = version ? "'#{version}'" : nil
       end
 
-      def add_config_files(context)
+      def add_config_file(context)
         if config_file_source
           File.open("#{context.folder_path}/#{config_file_destination}", 'w') do |file|
             file.puts config_file_source_content
@@ -21,6 +21,10 @@ module CodeSheriff
         end
 
         puts "\t#{name.capitalize} installed"
+      end
+
+      def gemfile_code
+        "gem '#{name}', group: :development"
       end
 
       private

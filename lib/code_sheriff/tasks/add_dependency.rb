@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CodeSheriff
   module Tasks
     class AddDependency
@@ -11,39 +13,24 @@ module CodeSheriff
       def add
         return if contains_gem?
 
-        if has_development_group?
-          squished_lines = gemfile.map { |line| line.gsub(/\s+/, " ").strip }
-          index = squished_lines.index('group :development do')
-          gemfile.insert index + 1, "  gem '#{dependency.name}'\n"
-        else
-          gemfile.concat ["\ngroup :development do\n", "  gem '#{dependency.name}'\n", "end\n"]
-        end
-        write_gemfile
-        dependency.add_config_files(context)
+        append_gemfile
+        dependency.add_config_file(context)
       end
-      
+
       private
 
       def gemfile
-        return @lines if @lines
-
-        File.open(context.gemfile_path, 'r') do |file|
-          @lines ||= file.each_line.to_a
-        end
+        @gemfile ||= File.read(context.gemfile_path)
       end
 
       def contains_gem?
-        gemfile.any? { |line| Regexp.new("\ *gem\ *\'#{dependency.name}\'") =~ line }
+        gemfile.match(Regexp.new("\ *gem\ *\'#{dependency.name}\'"))
       end
 
-      def write_gemfile
-        File.open(context.gemfile_path, 'w') do |file|
-          file.write(gemfile.join)
+      def append_gemfile
+        File.open(context.gemfile_path, 'a+') do |file|
+          file.puts("#{dependency.gemfile_code}\n")
         end
-      end
-
-      def has_development_group?
-        gemfile.any? { |line| /\ *group\ *\:development\ *do\ */ =~ line }
       end
     end
   end
