@@ -56,18 +56,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 12
 
-Rails:
-  Enabled: true
-
-Rails/Delegate:
-  Enabled: true
-
-Rails/FilePath:
-  Enabled: false
-
-Rails/SaveBang:
-  Enabled: true
-
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
 
