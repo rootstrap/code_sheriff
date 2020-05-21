@@ -3,34 +3,25 @@
 module CodeSheriff
   module Tasks
     class AddDependency
-      attr_reader :context, :dependency
+      attr_reader :context, :dependency, :project_type, :adapter
 
-      def initialize(context:, dependency:)
+      def initialize(context:, project_type:, dependency:)
         @context = context
         @dependency = dependency
+        @project_type = project_type
+        @adapter = choose_adapter.new(@context, @dependency)
       end
 
       def add
-        return if contains_gem?
-
-        append_gemfile
-        dependency.add_config_file(context)
+        @adapter.add
       end
 
       private
 
-      def gemfile
-        @gemfile ||= File.read(context.gemfile_path)
-      end
+      def choose_adapter
+        return CodeSheriff::Tasks::Adapters::AddDependencyGemspecAdapter if @project_type == 'gem'
 
-      def contains_gem?
-        gemfile.match(Regexp.new("\ *gem\ *\'#{dependency.name}\'"))
-      end
-
-      def append_gemfile
-        File.open(context.gemfile_path, 'a+') do |file|
-          file.puts("#{dependency.gemfile_code}\n")
-        end
+        CodeSheriff::Tasks::Adapters::AddDependencyGemfileAdapter
       end
     end
   end

@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require 'code_sheriff/context'
+require 'code_sheriff/project'
 require 'code_sheriff/version'
 require 'code_sheriff/dependencies/base'
 require 'code_sheriff/dependencies/brakeman'
 require 'code_sheriff/tasks/add_dependency'
+require 'code_sheriff/tasks/adapters/add_dependency_gemfile_adapter'
+require 'code_sheriff/tasks/adapters/add_dependency_gemspec_adapter'
 
 module CodeSheriff
   class Error < StandardError; end

@@ -6,6 +6,10 @@ module CodeSheriff
       "#{folder_path}/Gemfile"
     end
 
+    def gemspec_path
+      "#{folder_path}/#{Dir.glob('*.gemspec').first}"
+    end
+
     def folder_path
       `pwd`.sub("\n", '/')
     end

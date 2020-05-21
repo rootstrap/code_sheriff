@@ -5,12 +5,10 @@ module CodeSheriff
     class Base
       attr_reader :config_file_destination, :config_file_source, :name, :version
 
-      def initialize(config_file_source: nil, config_file_destination: nil, name:,
-                     version: nil)
+      def initialize(config_file_source: nil, config_file_destination: nil, name:)
         @config_file_source = config_file_source
         @config_file_destination = config_file_destination
         @name = name
-        @version = version ? "'#{version}'" : nil
       end
 
       def add_config_file(context)
@@ -25,6 +23,10 @@ module CodeSheriff
 
       def gemfile_code
         "gem '#{name}', group: :development"
+      end
+
+      def gemspec_code
+        "spec.add_development_dependency '#{name}'"
       end
 
       private
