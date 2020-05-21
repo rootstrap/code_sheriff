@@ -5,12 +5,12 @@ require_relative 'lib/code_sheriff/version'
 Gem::Specification.new do |spec|
   spec.name          = 'code_sheriff'
   spec.version       = CodeSheriff::VERSION
-  spec.authors       = ['Juan Manuel Ramallo']
-  spec.email         = ['ramallojuanm@gmail.com']
+  spec.authors       = ['Rootstrap']
+  spec.email         = ['info@rootstrap.com']
 
-  spec.summary       = ''
-  spec.description   = ''
-  spec.homepage      = ''
+  spec.summary       = 'Provides default configuration files for code quality tools in Ruby projects'
+  spec.description   = 'This gem bundles the default configuration files for code quality tools used widely in Ruby projects'
+  spec.homepage      = 'https://github.com/rootstrap/code_sheriff'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
@@ -23,9 +23,10 @@ Gem::Specification.new do |spec|
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir['LICENSE.txt', 'README.md', 'lib/**/*']
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  # spec.bindir        = 'exe'
+  # spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  # spec.require_paths = ['lib']
+
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'rspec'
