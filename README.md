@@ -26,7 +26,16 @@ In your `.rubocop.yml` file, add this at the top:
 ```yaml
 inherit_gem:
   code_sheriff:
-    - config/default.yml
+    - config/rubocop-default.yml
+```
+
+#### Reek
+In your `.reek.yml` file, add this at the top:
+
+```yaml
+inherit_gem:
+  code_sheriff:
+    - config/reek-default.yml
 ```
 
 ## Development
